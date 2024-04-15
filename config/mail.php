@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('MAIL_MAILER', 'smtp'),
+    'default' => 'smtp',
 
     /*
     |--------------------------------------------------------------------------
@@ -37,62 +37,13 @@ return [
         'smtp' => [
             'transport' => 'smtp',
             'url' => env('MAIL_URL'),
-            'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
-            'port' => env('MAIL_PORT', 587),
-            'encryption' => env('MAIL_ENCRYPTION', 'tls'),
-            'username' => env('MAIL_USERNAME'),
-            'password' => env('MAIL_PASSWORD'),
+            'host' => 'smtp.gmail.com',
+            'port' => 587,
+            'encryption' => 'ssl',
+            'username' => 'jorge.science14041986@gmail.com',
+            'password' => 'sjsy cvuk yaes jojv',
             'timeout' => null,
-            'local_domain' => env('MAIL_EHLO_DOMAIN'),
-        ],
-
-        'ses' => [
-            'transport' => 'ses',
-        ],
-
-        'postmark' => [
-            'transport' => 'postmark',
-            // 'message_stream_id' => null,
-            // 'client' => [
-            //     'timeout' => 5,
-            // ],
-        ],
-
-        'mailgun' => [
-            'transport' => 'mailgun',
-            // 'client' => [
-            //     'timeout' => 5,
-            // ],
-        ],
-
-        'sendmail' => [
-            'transport' => 'sendmail',
-            'path' => env('MAIL_SENDMAIL_PATH', '/usr/sbin/sendmail -bs -i'),
-        ],
-
-        'log' => [
-            'transport' => 'log',
-            'channel' => env('MAIL_LOG_CHANNEL'),
-        ],
-
-        'array' => [
-            'transport' => 'array',
-        ],
-
-        'failover' => [
-            'transport' => 'failover',
-            'mailers' => [
-                'smtp',
-                'log',
-            ],
-        ],
-
-        'roundrobin' => [
-            'transport' => 'roundrobin',
-            'mailers' => [
-                'ses',
-                'postmark',
-            ],
+            //'local_domain' => env('MAIL_EHLO_DOMAIN'),
         ],
     ],
 
@@ -108,8 +59,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => 'jorgefloriano1646@gmail.com',
+        'name' => 'Jorge Luis One Time Message',
     ],
 
     /*

@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->string('send_from', 50);
-            $table->string('send_to', 50);
-            $table->string('message', 250);
-            $table->string('purl_confirmation', 100);
-            $table->dateTime('purl_confirmation_sent');
-            $table->string('purl_read', 100);
-            $table->dateTime('purl_read_sent');
-            $table->dateTime('message_readed');
+            $table->string('send_from', 50)->nullable();
+            $table->string('send_to', 50)->nullable();
+            $table->string('message', 250)->nullable();
+            $table->string('purl_confirmation', 100)->nullable();
+            $table->dateTime('purl_confirmation_sent')->nullable();
+            $table->string('purl_read', 100)->nullable();
+            $table->dateTime('purl_read_sent')->nullable();
+            $table->dateTime('message_readed')->nullable();
         });
     }
 
