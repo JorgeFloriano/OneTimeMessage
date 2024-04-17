@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Mail\email_confirm_message;
+use App\Mail\email_message_readed;
+use App\Mail\email_read_message;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -87,11 +89,18 @@ class Main extends Controller
             return;
         }
 
+        // Get the recipient email addres
+        $email_to = $message->send_to;
+
         // remove purl_confirmation and creates purl_read
         $purl_read = Str::random(32);
         $message->purl_confirmation = null;
         $message->purl_read = $purl_read;
+        $message->purl_read_sent = now();
         $message->save();
+
+        // Send email to the recipient
+        Mail::to($email_to)->send(new email_read_message($purl_read));
 
         echo 'Message sent';
 
@@ -100,6 +109,37 @@ class Main extends Controller
 
     //------------------------------------------
     public function read($purl) {
-        
+
+        // check if purl exists
+        if (empty($purl)) {
+            return redirect()->route('main_index');
+        }
+
+        // check if purl exists in database
+        $message = Message::where('purl_read', $purl)->first();
+
+        // check is there is a message
+        if ($message === null) {
+
+            // presents a view indicating that there was an error
+            // make the view
+            echo 'not exists';
+            return;
+        }
+
+        // Remove purl_read and store message_readed
+        $message_readed = now();
+        $email_recipient = $message->send_to;
+        $email_from = $message->send_from;
+
+        $message->purl_read = null;
+        $message->message_readed = $message_readed;
+        $message->save();
+
+        // Send email to the emitter confirming that the message was readed
+        Mail::to($email_from)->send(new email_message_readed($message_readed, $email_recipient));
+
+        // Display the one time message
+        echo $message->message;
     }
 }

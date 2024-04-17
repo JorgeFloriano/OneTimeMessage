@@ -10,6 +10,6 @@ Route::post('/init', 'Main@init')->name('main_init');
 Route::get('/confirm/{purl}', 'Main@confirm')->name('main_confirm');
 
 // Reading the message
-Route::get('/read{purl}', 'Main@read')->name('main_read');
+Route::get('/read/{purl}', 'Main@read')->name('main_read');
 
 
