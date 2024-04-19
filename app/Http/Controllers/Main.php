@@ -83,10 +83,8 @@ class Main extends Controller
         // check is there is a message
         if ($message === null) {
 
-            // presents a view indicating that there was an error
-            // make the view
-            echo 'not exists';
-            return;
+        // Presents a view indicating that there was an error
+        return view('error');
         }
 
         // Get the recipient email addres
@@ -102,9 +100,12 @@ class Main extends Controller
         // Send email to the recipient
         Mail::to($email_to)->send(new email_read_message($purl_read));
 
-        echo 'Message sent';
+        // Display the preview indicating that the message was sent successfully
+        $data = [
+            'email_adress' => $email_to
+        ];
+        return view('message_sent', $data);
 
-        // WsieGsnSS9pIrJAGdx33oPKbXwjM7IQg
     }
 
     //------------------------------------------
@@ -121,10 +122,8 @@ class Main extends Controller
         // check is there is a message
         if ($message === null) {
 
-            // presents a view indicating that there was an error
-            // make the view
-            echo 'not exists';
-            return;
+            // Presents a view indicating that there was an error
+        return view('error');
         }
 
         // Remove purl_read and store message_readed
@@ -140,6 +139,10 @@ class Main extends Controller
         Mail::to($email_from)->send(new email_message_readed($message_readed, $email_recipient));
 
         // Display the one time message
-        echo $message->message;
+        $data = [
+            'message' => $message->message,
+            'sender' => $message->send_from
+        ];
+        return view('read_message', $data);
     }
 }
